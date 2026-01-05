@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { MOCK_LOANS, STATUS_COLORS, PRODUCT_ICONS } from '../constants';
 import { LoanStatus, LoanType } from '../types';
@@ -9,132 +8,127 @@ const BorrowerDashboard: React.FC = () => {
   const pendingLoans = MOCK_LOANS.filter(l => l.status === LoanStatus.PENDING_REVIEW);
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6 lg:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      {/* Welcome Banner */}
-      <div className="bg-indigo-600 rounded-xl lg:rounded-2xl p-6 lg:p-8 text-white relative overflow-hidden shadow-xl shadow-indigo-100">
-        <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-          <div className="space-y-2">
-            <h2 className="text-2xl lg:text-3xl font-bold">Welcome back, Alex!</h2>
-            <p className="text-indigo-100 text-sm lg:text-base max-w-lg opacity-90">Manage your active loans, track applications, and make repayments through your dedicated virtual account.</p>
+    <div className="max-w-7xl mx-auto space-y-8 animate-fade-in">
+      {/* Dynamic Hero Section */}
+      <div className="bg-gradient-to-br from-indigo-600 to-indigo-800 rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl shadow-indigo-200">
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-10">
+          <div className="space-y-4 text-center md:text-left">
+            <h2 className="text-3xl md:text-5xl font-black tracking-tight leading-none">Welcome, Alex Thompson.</h2>
+            <p className="text-indigo-100 text-lg md:text-xl font-medium max-w-xl opacity-90 leading-relaxed">
+              Your lending portfolio is currently <span className="text-emerald-300 font-bold underline decoration-emerald-300/30 underline-offset-4 tracking-tight italic">Optimized</span>. 
+              Manage your $450,000 Mortgage and pending requests.
+            </p>
           </div>
-          <Link to="/borrower/apply" className="w-full sm:w-auto bg-white text-indigo-600 px-6 py-3 rounded-lg lg:rounded-xl font-bold shadow-lg hover:bg-indigo-50 transition-colors text-center text-sm lg:text-base">
-            Apply Now
+          <Link 
+            to="/borrower/apply" 
+            className="w-full md:w-auto bg-white text-indigo-700 px-10 py-5 rounded-2xl font-black shadow-xl hover:bg-indigo-50 transition-all transform hover:-translate-y-1 active:scale-95 text-center text-lg whitespace-nowrap"
+          >
+            New Funding Request
           </Link>
         </div>
-        {/* Background Decorative Circles */}
-        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-32 h-32 lg:w-64 lg:h-64 bg-indigo-500 rounded-full opacity-20"></div>
-        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-24 h-24 lg:w-48 lg:h-48 bg-indigo-700 rounded-full opacity-30"></div>
+        {/* Abstract Background Design */}
+        <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-96 h-96 bg-indigo-500 rounded-full opacity-20 blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-64 h-64 bg-indigo-400 rounded-full opacity-10 blur-2xl"></div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-        {/* Active Loan Summary */}
-        <div className="lg:col-span-2 space-y-6">
-          <h3 className="text-lg lg:text-xl font-bold text-slate-800 flex items-center gap-2">
-            <span className="w-1.5 h-6 bg-indigo-600 rounded-full"></span>
-            My Active Loans
-          </h3>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {/* Main Content: Active Loans */}
+        <div className="lg:col-span-2 space-y-8">
+          <div className="flex items-center justify-between px-2">
+            <h3 className="text-2xl font-black text-slate-800 flex items-center gap-3">
+              <span className="w-2.5 h-10 bg-indigo-600 rounded-full"></span>
+              Active Facilities
+            </h3>
+          </div>
 
           {activeLoan ? (
-            <div className="glass-card rounded-xl lg:rounded-2xl p-6 lg:p-8 shadow-sm border border-slate-200">
-              <div className="flex flex-wrap justify-between items-start gap-4 mb-8">
-                <div className="flex items-center gap-4">
-                  <div className="p-3 lg:p-4 bg-indigo-50 text-indigo-600 rounded-xl">
+            <div className="glass-card rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-slate-200 transition-all duration-500 hover:shadow-2xl hover:shadow-indigo-50 group">
+              <div className="flex flex-wrap justify-between items-start gap-6 mb-12">
+                <div className="flex items-center gap-6">
+                  <div className="p-5 bg-indigo-50 text-indigo-600 rounded-[1.5rem] shadow-inner group-hover:scale-110 transition-transform">
                     {PRODUCT_ICONS[activeLoan.type as LoanType]}
                   </div>
                   <div>
-                    <h4 className="text-base lg:text-lg font-bold text-slate-900">{activeLoan.type} Loan</h4>
-                    <p className="text-slate-500 text-xs lg:text-sm font-mono">Ref: {activeLoan.id}</p>
+                    <h4 className="text-2xl font-black text-slate-900 leading-tight">{activeLoan.type} Loan</h4>
+                    <p className="text-slate-400 text-sm font-mono tracking-widest mt-1 uppercase font-bold">Ref: {activeLoan.id}</p>
                   </div>
                 </div>
-                <span className={`px-3 py-1.5 rounded-full text-[10px] lg:text-xs font-bold uppercase tracking-wider ${STATUS_COLORS[activeLoan.status as LoanStatus]}`}>
+                <span className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-sm ${STATUS_COLORS[activeLoan.status as LoanStatus]}`}>
                   {activeLoan.status}
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 lg:gap-8 mb-8">
-                <div className="bg-slate-50/50 p-3 lg:p-0 rounded-lg lg:bg-transparent">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Outstanding</p>
-                  <p className="text-lg lg:text-xl font-bold text-slate-900">${activeLoan.outstandingBalance.toLocaleString()}</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+                <div className="space-y-1">
+                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Balance Due</p>
+                  <p className="text-2xl font-black text-slate-900">${activeLoan.outstandingBalance.toLocaleString()}</p>
                 </div>
-                <div className="bg-slate-50/50 p-3 lg:p-0 rounded-lg lg:bg-transparent">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Total Loan</p>
-                  <p className="text-lg lg:text-xl font-bold text-slate-900">${activeLoan.amount.toLocaleString()}</p>
+                <div className="space-y-1">
+                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Next Due</p>
+                  <p className="text-xl font-bold text-slate-700">{activeLoan.nextRepaymentDate || 'Pending'}</p>
                 </div>
-                <div className="bg-slate-50/50 p-3 lg:p-0 rounded-lg lg:bg-transparent">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Next Payment</p>
-                  <p className="text-lg lg:text-xl font-bold text-slate-900 truncate">{activeLoan.nextRepaymentDate || 'N/A'}</p>
+                <div className="space-y-1">
+                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Principal</p>
+                  <p className="text-xl font-bold text-slate-700">${activeLoan.amount.toLocaleString()}</p>
                 </div>
-                <div className="bg-slate-50/50 p-3 lg:p-0 rounded-lg lg:bg-transparent">
-                  <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">APR</p>
-                  <p className="text-lg lg:text-xl font-bold text-slate-900">{activeLoan.interestRate}%</p>
+                <div className="space-y-1">
+                  <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Fixed APR</p>
+                  <p className="text-xl font-black text-indigo-600">{activeLoan.interestRate}%</p>
                 </div>
               </div>
 
-              <div className="bg-slate-900 rounded-xl p-4 lg:p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-indigo-500/20 text-indigo-400 rounded-lg flex items-center justify-center shrink-0">
-                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <div className="bg-slate-900 rounded-[2rem] p-6 flex flex-col md:flex-row items-center justify-between gap-6 border border-slate-800 shadow-xl">
+                <div className="flex items-center gap-6">
+                  <div className="w-14 h-14 bg-white/5 text-indigo-400 rounded-2xl flex items-center justify-center shrink-0 border border-white/5">
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-[10px] text-slate-400 font-bold uppercase">Repayment Virtual Account</p>
-                    <p className="font-mono font-bold text-white tracking-wider text-base lg:text-lg">{activeLoan.virtualAccount}</p>
+                    <p className="text-[10px] text-slate-500 font-black uppercase tracking-[0.2em] mb-1">Repayment Virtual Account</p>
+                    <p className="font-mono font-bold text-white text-xl tracking-[0.25em]">{activeLoan.virtualAccount}</p>
                   </div>
                 </div>
-                <button className="w-full sm:w-auto text-indigo-400 text-xs lg:text-sm font-bold hover:text-indigo-300 py-2 border border-slate-700 lg:border-none rounded-lg text-center">
-                  Copy Details
+                <button className="px-8 py-3 border border-white/10 text-white rounded-xl text-sm font-black hover:bg-white/5 transition-colors">
+                  Copy VA Details
                 </button>
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-xl lg:rounded-2xl p-8 lg:p-12 text-center border-2 border-dashed border-slate-200">
-              <div className="mx-auto w-16 h-16 bg-slate-50 text-slate-300 rounded-full flex items-center justify-center mb-4">
-                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.407 2.67 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.407-2.67-1M12 16v1" />
-                </svg>
-              </div>
-              <h4 className="text-lg font-bold text-slate-800">No Active Loans</h4>
-              <p className="text-slate-500 mb-6 text-sm">You don't have any active loans at the moment.</p>
-              <Link to="/borrower/apply" className="inline-flex items-center gap-2 bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-indigo-700 transition-colors">
-                Apply Now
-              </Link>
+            <div className="bg-white rounded-[2.5rem] p-16 text-center border-2 border-dashed border-slate-200">
+              <p className="text-slate-400 text-lg font-medium italic">No active loan facilities found in this profile.</p>
             </div>
           )}
 
-          {/* Pending Applications List (Optimized for Mobile) */}
-          <div className="bg-white rounded-xl lg:rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="p-4 lg:p-6 border-b border-slate-100 flex justify-between items-center">
-              <h4 className="font-bold text-slate-800 text-sm lg:text-base">Pending Applications</h4>
-              <span className="bg-slate-100 text-slate-500 text-[10px] font-bold px-2 py-1 rounded">
-                {pendingLoans.length} total
-              </span>
+          {/* Pending Applications Queue */}
+          <div className="bg-white rounded-[2.5rem] border border-slate-200 shadow-sm overflow-hidden">
+            <div className="px-10 py-8 border-b border-slate-100 flex justify-between items-center bg-slate-50/30">
+              <h4 className="font-black text-slate-800 text-xl tracking-tight">Active Application Queue</h4>
+              <span className="bg-slate-200 text-slate-600 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest">{pendingLoans.length} Pending</span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
-                <thead className="bg-slate-50 text-slate-400 text-[10px] uppercase tracking-wider font-bold">
+                <thead className="bg-slate-50/50 text-slate-400 text-[10px] font-black uppercase tracking-[0.25em]">
                   <tr>
-                    <th className="px-4 lg:px-6 py-4">Loan Type</th>
-                    <th className="px-4 lg:px-6 py-4">Applied</th>
-                    <th className="px-4 lg:px-6 py-4">Amount</th>
-                    <th className="px-4 lg:px-6 py-4 text-right">Status</th>
+                    <th className="px-10 py-6">Financing Type</th>
+                    <th className="px-10 py-6">Requested Principal</th>
+                    <th className="px-10 py-6 text-right">Processing Status</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {pendingLoans.map(loan => (
-                    <tr key={loan.id} className="hover:bg-slate-50 transition-colors cursor-pointer group">
-                      <td className="px-4 lg:px-6 py-4">
-                        <div className="flex items-center gap-2 lg:gap-3">
-                          <div className="p-1.5 bg-slate-100 text-slate-500 rounded hidden sm:block">
-                            {PRODUCT_ICONS[loan.type as LoanType]}
-                          </div>
-                          <span className="font-semibold text-slate-800 text-xs lg:text-sm">{loan.type}</span>
+                    <tr key={loan.id} className="hover:bg-slate-50/50 transition-all cursor-pointer">
+                      <td className="px-10 py-7">
+                        <div className="flex items-center gap-4">
+                          <span className="font-black text-slate-700 text-lg">{loan.type}</span>
+                          <span className="text-[10px] text-slate-400 font-mono tracking-tighter">ID: {loan.id}</span>
                         </div>
                       </td>
-                      <td className="px-4 lg:px-6 py-4 text-slate-600 text-[10px] lg:text-sm font-medium whitespace-nowrap">{loan.appliedAt}</td>
-                      <td className="px-4 lg:px-6 py-4 text-slate-800 font-bold text-xs lg:text-sm whitespace-nowrap">${loan.amount.toLocaleString()}</td>
-                      <td className="px-4 lg:px-6 py-4 text-right">
-                        <span className={`inline-block px-2 py-1 rounded-full text-[9px] font-bold uppercase ${STATUS_COLORS[loan.status as LoanStatus]}`}>
+                      <td className="px-10 py-7">
+                        <span className="font-black text-slate-900 text-xl">${loan.amount.toLocaleString()}</span>
+                      </td>
+                      <td className="px-10 py-7 text-right">
+                        <span className={`px-4 py-2 rounded-full text-[9px] font-black uppercase tracking-widest shadow-sm ${STATUS_COLORS[loan.status as LoanStatus]}`}>
                           {loan.status}
                         </span>
                       </td>
@@ -142,7 +136,7 @@ const BorrowerDashboard: React.FC = () => {
                   ))}
                   {pendingLoans.length === 0 && (
                     <tr>
-                      <td colSpan={4} className="px-6 py-10 text-center text-slate-400 italic text-sm">No applications in progress</td>
+                      <td colSpan={3} className="px-10 py-16 text-center text-slate-400 italic font-medium">No applications currently under review.</td>
                     </tr>
                   )}
                 </tbody>
@@ -152,49 +146,49 @@ const BorrowerDashboard: React.FC = () => {
         </div>
 
         {/* Sidebar Widgets */}
-        <div className="space-y-6 lg:space-y-8">
-          {/* Virtual Account Info Card */}
-          <div className="bg-slate-900 rounded-xl lg:rounded-2xl p-6 text-white shadow-xl">
-            <div className="flex items-center justify-between mb-6">
-              <h4 className="font-bold text-sm lg:text-base">Virtual Account</h4>
-              <div className="w-8 h-8 bg-indigo-500/20 text-indigo-400 rounded flex items-center justify-center">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                </svg>
-              </div>
-            </div>
-            <p className="text-slate-400 text-xs lg:text-sm mb-6 leading-relaxed">Unique account assigned to you for seamless, automated loan repayment matching.</p>
-            <div className="space-y-3">
-              <div className="bg-slate-800/50 rounded-lg p-3 lg:p-4">
-                <p className="text-[10px] text-slate-500 uppercase font-bold mb-1">Bank Name</p>
-                <p className="font-semibold text-xs lg:text-sm">LendFlow National Bank</p>
-              </div>
-              <div className="bg-indigo-600/10 border border-indigo-500/20 rounded-lg p-3 lg:p-4">
-                <p className="text-[10px] text-indigo-400 uppercase font-bold mb-1">Account Number</p>
-                <div className="flex justify-between items-center">
-                  <p className="font-mono font-bold text-sm lg:text-lg tracking-wider text-white">8822910</p>
-                  <button className="text-indigo-400 p-1 hover:bg-white/10 rounded">
-                    <svg className="w-4 h-4 lg:w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                    </svg>
-                  </button>
+        <div className="space-y-8">
+          <div className="bg-white rounded-[2.5rem] p-10 border border-slate-200 shadow-sm">
+            <h4 className="font-black text-slate-800 mb-8 flex items-center justify-between">
+              E-Services
+              <span className="w-3 h-3 bg-indigo-500 rounded-full animate-pulse shadow-[0_0_12px_rgba(99,102,241,0.5)]"></span>
+            </h4>
+            <div className="space-y-4">
+              <button className="w-full p-5 bg-slate-50 hover:bg-white hover:shadow-xl hover:shadow-indigo-50 rounded-3xl flex items-center gap-5 transition-all group border border-slate-100">
+                <div className="p-3 bg-white rounded-2xl shadow-sm group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586" /></svg>
                 </div>
-              </div>
+                <div className="text-left">
+                  <p className="text-sm font-black text-slate-800">Bank Statements</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Download PDFs</p>
+                </div>
+              </button>
+              <button className="w-full p-5 bg-slate-50 hover:bg-white hover:shadow-xl hover:shadow-emerald-50 rounded-3xl flex items-center gap-5 transition-all group border border-slate-100">
+                <div className="p-3 bg-white rounded-2xl shadow-sm group-hover:bg-emerald-600 group-hover:text-white transition-all duration-300">
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2" /></svg>
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-black text-slate-800">Interest Relief</p>
+                  <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Check Eligibility</p>
+                </div>
+              </button>
             </div>
           </div>
-
-          {/* Quick Support Widget */}
-          <div className="bg-white rounded-xl lg:rounded-2xl p-6 border border-slate-200">
-            <h4 className="font-bold text-slate-800 mb-4 text-sm lg:text-base">Need Help?</h4>
-            <p className="text-xs lg:text-sm text-slate-500 mb-6 leading-relaxed">Our underwriters are processing applications Mon-Fri 9AM-6PM.</p>
-            <div className="space-y-2 lg:space-y-3">
-              <button className="w-full py-2.5 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-bold hover:bg-white transition-all text-xs lg:text-sm">
-                Chat Support
-              </button>
-              <button className="w-full py-2.5 text-indigo-600 font-bold text-xs lg:text-sm hover:bg-indigo-50 rounded-lg transition-all">
-                Send Email
+          
+          <div className="bg-slate-900 rounded-[2.5rem] p-10 text-white relative overflow-hidden group shadow-2xl">
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-3 h-3 bg-emerald-400 rounded-full animate-pulse"></div>
+                <span className="text-[10px] font-black uppercase tracking-[0.25em] text-slate-400">Direct Support</span>
+              </div>
+              <h4 className="font-black text-2xl mb-4 leading-tight">Connect with an Expert</h4>
+              <p className="text-sm text-slate-400 leading-relaxed mb-10 opacity-80">
+                Our underwriting team is currently reviewing mortgage applications. Connect now for instant status updates.
+              </p>
+              <button className="w-full py-5 bg-indigo-600 rounded-[1.5rem] font-black text-sm hover:bg-indigo-700 transition-all active:scale-95 shadow-xl shadow-indigo-950/50">
+                Initiate Chat
               </button>
             </div>
+            <div className="absolute top-0 right-0 w-48 h-48 bg-indigo-500/10 rounded-full blur-[80px] group-hover:bg-indigo-500/20 transition-all duration-700"></div>
           </div>
         </div>
       </div>
