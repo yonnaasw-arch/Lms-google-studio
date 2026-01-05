@@ -6,9 +6,11 @@ import { UserRole } from '../types';
 interface SidebarProps {
   role: UserRole;
   onToggleRole: () => void;
+  isOpen: boolean;
+  onClose: () => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ role, onToggleRole }) => {
+const Sidebar: React.FC<SidebarProps> = ({ role, onToggleRole, isOpen, onClose }) => {
   const location = useLocation();
   const isAdmin = role === UserRole.UNDERWRITER || role === UserRole.FINANCE;
 
@@ -28,21 +30,27 @@ const Sidebar: React.FC<SidebarProps> = ({ role, onToggleRole }) => {
   const links = isAdmin ? adminLinks : borrowerLinks;
 
   return (
-    <div className="w-64 bg-slate-900 text-slate-300 flex flex-col transition-all duration-300 z-50">
-      <div className="p-6">
+    <div className={`fixed lg:static inset-y-0 left-0 w-64 bg-slate-900 text-slate-300 flex flex-col transition-transform duration-300 z-50 transform ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}`}>
+      <div className="p-6 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/30">
             L
           </div>
           <span className="text-xl font-bold text-white tracking-tight">LendFlow</span>
         </div>
+        <button className="lg:hidden text-slate-400 p-2" onClick={onClose}>
+          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
-      <nav className="flex-1 px-4 space-y-1">
+      <nav className="flex-1 px-4 space-y-1 overflow-y-auto">
         {links.map((link) => (
           <Link
             key={link.path}
             to={link.path}
+            onClick={() => onClose()}
             className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors group ${
               location.pathname === link.path 
                 ? 'bg-indigo-600/10 text-indigo-400 border border-indigo-600/20' 
@@ -65,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, onToggleRole }) => {
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
           </svg>
-          Switch to {isAdmin ? 'Borrower' : 'Admin'}
+          <span className="truncate">Switch to {isAdmin ? 'Borrower' : 'Admin'}</span>
         </button>
       </div>
     </div>
